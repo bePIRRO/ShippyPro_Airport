@@ -14,14 +14,14 @@ require_once __DIR__ . '/models/flight.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="./style/style.css?v=<?php echo time(); ?>">
     <title>ShippyPro - Airport</title>
 </head>
 
 <body>
     <h1>ShippyPro - Airport</h1>
 
-    <!-- airpots -->
+    <!-- airpots section -->
     <h2>Airports</h2>
     <section id="airports">
         <?php
@@ -66,19 +66,27 @@ require_once __DIR__ . '/models/flight.php';
             $flight['code_arrival']  = $airports[$n[1]]['code'];
             $flight['price'] = rand(150, 900);
             $flight['stopovers'] = rand(0, 4);
-            
             array_push($flights, $flight);
         }
         array_shift($flights);
+        // find cheapest
+        $cheapest = 1000;
+        for ($i = 0; $i < count($flights); $i++) {
+            if ($flights[$i]['price'] < $cheapest && $flights[$i]['stopovers'] < 3) {
+                $cheapest = $flights[$i]['price'];
+            };
+        }
         ?>
 
+        <h1><?php echo $cheapest ?></h1>
+
+        <!-- flights section -->
         <section id="flights">  
             <?php
                     for ($i = 0; $i < count($flights); $i++) {
-                        if ($flights[$i]['stopovers'] < 3) {
+                        if ($flights[$i]['stopovers'] < 3) {                  
                             ?>
-                        <div class="flight">
-                            <div>id: <?php echo $flights[$i]['id']?></div>
+                        <div class="flight <?php if ($flights[$i]['price'] == $cheapest) echo 'cheapest'; ?>">
                             <div>partenza: 
                                 <?php 
                                     $n = 0;
