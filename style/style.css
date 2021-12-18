@@ -4,10 +4,12 @@ body {
   box-sizing: border-box;
 }
 
-#airports {
+#airports,
+#flights {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  color: red;
 }
 
 .airport {
@@ -20,4 +22,8 @@ body {
 h1,
 h2 {
   text-align: center;
+}
+
+.cheapest {
+  color: red;
 }
