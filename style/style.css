@@ -113,3 +113,7 @@ hr {
   font-size: 22px;
   margin: 0 10px;
 }
+
+.lang:hover {
+  color: #fff;
+}

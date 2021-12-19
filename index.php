@@ -122,56 +122,16 @@ require_once __DIR__ . '/data/links.php';
             <!-- flights section -->
             <section class="container-fluid d-flex flex-column align-items-center mt-5 py-5" id="flights">  
                     <?php
-                            
-
-                            function array_sort($array, $on, $order=SORT_ASC)
-                            {
-                                $new_array = array();
-                                $sortable_array = array();
-                            
-                                if (count($array) > 0) {
-                                    foreach ($array as $k => $v) {
-                                        if (is_array($v)) {
-                                            foreach ($v as $k2 => $v2) {
-                                                if ($k2 == $on) {
-                                                    $sortable_array[$k] = $v2;
-                                                }
-                                            }
-                                        } else {
-                                            $sortable_array[$k] = $v;
-                                        }
-                                    }
-                            
-                                    switch ($order) {
-                                        case SORT_ASC:
-                                            asort($sortable_array);
-                                        break;
-                                        case SORT_DESC:
-                                            arsort($sortable_array);
-                                        break;
-                                    }
-                            
-                                    foreach ($sortable_array as $k => $v) {
-                                        $new_array[$k] = $array[$k];
-                                    }
-                                }
-                            
-                                return $new_array;
-                            }
-
-                           
-                           $sort_flights = array_sort($flights, 'price', SORT_ASC);
-                        //    print_r($sort_flights);
-
-                        for ($i = 0; $i < count($sort_flights); $i++) {
-                            if ($sort_flights[$i]['stopovers'] < 3) {              
+                        //    flights in page
+                        for ($i = 0; $i < count($flights); $i++) {
+                            if ($flights[$i]['stopovers'] < 3) {              
                     ?>
-                        <div class="flight d-flex row pointer hover <?php if ($sort_flights[$i]['price'] == $cheapest) echo 'cheapest cheapest-icon'; ?>">
+                        <div class="flight d-flex row pointer hover <?php if ($flights[$i]['price'] == $cheapest) echo 'cheapest cheapest-icon'; ?>">
                             <ul class="p-0 d-flex">
                                 <li class="col-4">Partenza: 
                                     <?php 
                                     $n = 0;
-                                    while ($sort_flights[$i]['code_departure'] != $airports[$n]['code']):
+                                    while ($flights[$i]['code_departure'] != $airports[$n]['code']):
                                         $n++;
                                     endwhile;    
                                     echo $airports[$n]['name']
@@ -180,21 +140,22 @@ require_once __DIR__ . '/data/links.php';
                             <li class="col-4">Arrivo: 
                                 <?php 
                                     $n = 0;
-                                    while ($sort_flights[$i]['code_arrival'] != $airports[$n]['code']):
+                                    while ($flights[$i]['code_arrival'] != $airports[$n]['code']):
                                         $n++;
                                     endwhile;    
                                     echo $airports[$n]['name']
                                     ?>
                             </li>
-                            <li class="col-2">Prezzo: <?php echo $sort_flights[$i]['price']; ?> €</li>
-                            <li class="col-2">Scali: <?php echo $sort_flights[$i]['stopovers']; ?></li>
+                            <li class="col-2">Prezzo: <?php echo $flights[$i]['price']; ?> €</li>
+                            <li class="col-2">Scali: <?php echo $flights[$i]['stopovers']; ?></li>
                         </ul>
                         </div>
                     <?php }}?>           
             </section>
-                    
         </section>
 
+
+        <!-- footer -->
         <footer class="py-5">
             <div class="container">
                 <div class="row justify-content-center links">
@@ -245,7 +206,7 @@ require_once __DIR__ . '/data/links.php';
                 <hr>
                 <div class="privacy">
                     <div class="row justify-content-center">
-                        <div class="col-2">
+                        <div class="col-2 pointer lang">
                             Italiano (IT) &#9660;
                         </div>
                         <div class="col-7 d-flex justify-content-center">
